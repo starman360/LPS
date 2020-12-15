@@ -1,0 +1,104 @@
+#include "dwm1001.h"
+#include "esp_nvs.h"
+#include "esp_interrupt.h"
+
+// -- Timer includes for testing
+#ifdef NODE_DEBUG
+#include "soc/timer_group_struct.h"
+#include "driver/timer.h"
+#define TIMER_DIVIDER         16  //  Hardware timer clock divider
+#define TIMER_SCALE           (TIMER_BASE_CLK / TIMER_DIVIDER)  // convert counter value to seconds
+#endif // NODE_DEBUG
+
+void app_main(){    
+    /*****************************************************************************/
+    /* ---------- ----------  General Node Initializations ---------- ---------- */
+    /*****************************************************************************/
+    spi_init();
+    
+    // -- Initialize the timer to be used in main loop
+    #ifdef NODE_DEBUG
+    timer_config_t config;
+    config.divider = TIMER_DIVIDER;
+    config.counter_dir = TIMER_COUNT_UP;
+    config.counter_en = TIMER_PAUSE;
+    timer_init(TIMER_GROUP_0, TIMER_0, &config);
+    #endif // NODE_DEBUG
+
+    // -- Add slight delay to let all systems comfortably boot up
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    /*****************************************************************************/
+    /* ---------- ----------    Node Configuration Check   ---------- ---------- */
+    /*****************************************************************************/
+    dwm_resp_cfg_get dwm1cfg, dwm2cfg;
+    dwm_resp_err err1, err2;
+    bool rst = false;
+
+    // -- Check if designated Anchor DWM is configured as desired
+    dwm2cfg = dwm_cfg_get(NODE_TYPE_ANC);
+    if((dwm2cfg.cfg.cfg_bytes[0] != DWM2_CFG_BYTE0) && (dwm2cfg.cfg.cfg_bytes[1] != DWM2_CFG_BYTE1)){
+        #ifdef NODE_DEBUG
+        printf("Configuring DWM2 as Anchor Initiator\n");
+        #endif // NODE_DEBUG
+        uint8_t anccfg_arg = 0x9A, intcfg_arg = 0x02;
+        err2 = dwm_anc_set(anccfg_arg, NODE_TYPE_ANC);
+        err2 = dwm_int_cfg(intcfg_arg, NODE_TYPE_ANC); // Does not seem to work, will ignore interrupts for now
+        err2 = dwm_rst(NODE_TYPE_ANC);
+        rst = true;
+    } else {
+        #ifdef NODE_DEBUG
+        printf("DWM2 is already configured as Anchor Initiator\n");
+        #endif // NODE_DEBUG
+    }
+    
+    // -- Check if designated Anchor DWM is configured as desired
+    dwm1cfg = dwm_cfg_get(NODE_TYPE_TAG);
+    if((dwm1cfg.cfg.cfg_bytes[0] != DWM1_CFG_BYTE0) && (dwm1cfg.cfg.cfg_bytes[1] != DWM1_CFG_BYTE1)){
+        #ifdef NODE_DEBUG
+        printf("Configuring DWM1 as Tag w/o loc_engine\n");
+        #endif // NODE_DEBUG
+        uint8_t tagcfg_arg[] = {0x9A, 0x00}, intcfg_arg = 0x02;
+        err1 = dwm_tag_set(tagcfg_arg, NODE_TYPE_TAG);
+        err1 = dwm_int_cfg(intcfg_arg, NODE_TYPE_TAG); // Does not seem to work, will ignore interrupts for now
+        err1 = dwm_rst(NODE_TYPE_TAG);
+        rst  = true;
+    } else {
+        #ifdef NODE_DEBUG
+        printf("DWM1 is already configured as Tag w/o loc_engine\n");
+        #endif // NODE_DEBUG
+    }
+
+    // -- If a DWM module had to reconfigure, we wait a few moments for it to connect to other DWMs
+    if(rst == true)
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
+
+    /*****************************************************************************/
+    /* ---------- ----------     Node Normal Operations    ---------- ---------- */
+    /*****************************************************************************/
+    dwm_resp_tag_loc_get dists;
+    double start, end, init=0;
+    while(1){
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+
+        // -- Start counter and grab start time
+        #ifdef NODE_DEBUG
+        timer_start(TIMER_GROUP_0, TIMER_0);
+        timer_get_counter_time_sec(TIMER_GROUP_0, TIMER_0, &start);
+        #endif // NODE_DEBUG
+
+        // -- Execute SPI Command
+        dists = dwm_tag_loc_get(NODE_TYPE_TAG);
+
+        // -- Grab post-SPI timer val and reset
+        #ifdef NODE_DEBUG
+        timer_get_counter_time_sec(TIMER_GROUP_0, TIMER_0, &end);
+        timer_pause(TIMER_GROUP_0, TIMER_0);
+        timer_set_counter_value(TIMER_GROUP_0, TIMER_0,0);
+        // -- Print out time delta of SPI Transaction
+        printf("Task finished in %.8f seconds...\n", (end-start));
+        #endif // NODE_DEBUG
+        
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+    }
+}

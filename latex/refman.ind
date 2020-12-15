@@ -1,0 +1,78 @@
+\begin{theindex}
+
+  \item {app\_main}
+    \subitem {mesh\_main.c}, \hyperpage{5}
+
+  \indexspace
+
+  \item {disp\_info}
+    \subitem {mesh\_main.c}, \hyperpage{6}
+  \item {display\_clear}
+    \subitem {mesh\_main.c}, \hyperpage{7}
+
+  \indexspace
+
+  \item {esp\_mesh\_comm\_p2p\_start}
+    \subitem {mesh\_main.c}, \hyperpage{7}
+  \item {esp\_mesh\_p2p\_rx\_main}
+    \subitem {mesh\_main.c}, \hyperpage{7}
+  \item {esp\_mesh\_p2p\_tx\_main}
+    \subitem {mesh\_main.c}, \hyperpage{9}
+
+  \indexspace
+
+  \item {i2c\_master\_init}
+    \subitem {mesh\_main.c}, \hyperpage{10}
+
+  \indexspace
+
+  \item {main/mesh\_main.c}, \hyperpage{3}, \hyperpage{13}
+  \item {mesh\_event\_handler}
+    \subitem {mesh\_main.c}, \hyperpage{10}
+  \item {mesh\_main.c}
+    \subitem {app\_main}, \hyperpage{5}
+    \subitem {disp\_info}, \hyperpage{6}
+    \subitem {display\_clear}, \hyperpage{7}
+    \subitem {esp\_mesh\_comm\_p2p\_start}, \hyperpage{7}
+    \subitem {esp\_mesh\_p2p\_rx\_main}, \hyperpage{7}
+    \subitem {esp\_mesh\_p2p\_tx\_main}, \hyperpage{9}
+    \subitem {i2c\_master\_init}, \hyperpage{10}
+    \subitem {mesh\_event\_handler}, \hyperpage{10}
+    \subitem {MESH\_PORT}, \hyperpage{4}
+    \subitem {MESH\_SERVER\_IP}, \hyperpage{4}
+    \subitem {RX\_SIZE}, \hyperpage{4}
+    \subitem {SCL\_PIN}, \hyperpage{4}
+    \subitem {SDA\_PIN}, \hyperpage{4}
+    \subitem {ssd1306\_init}, \hyperpage{12}
+    \subitem {tag}, \hyperpage{5}
+    \subitem {task\_ssd1306\_display\_text}, \hyperpage{13}
+    \subitem {TX\_SIZE}, \hyperpage{5}
+  \item {MESH\_PORT}
+    \subitem {mesh\_main.c}, \hyperpage{4}
+  \item {MESH\_SERVER\_IP}
+    \subitem {mesh\_main.c}, \hyperpage{4}
+
+  \indexspace
+
+  \item {RX\_SIZE}
+    \subitem {mesh\_main.c}, \hyperpage{4}
+
+  \indexspace
+
+  \item {SCL\_PIN}
+    \subitem {mesh\_main.c}, \hyperpage{4}
+  \item {SDA\_PIN}
+    \subitem {mesh\_main.c}, \hyperpage{4}
+  \item {ssd1306\_init}
+    \subitem {mesh\_main.c}, \hyperpage{12}
+
+  \indexspace
+
+  \item {tag}
+    \subitem {mesh\_main.c}, \hyperpage{5}
+  \item {task\_ssd1306\_display\_text}
+    \subitem {mesh\_main.c}, \hyperpage{13}
+  \item {TX\_SIZE}
+    \subitem {mesh\_main.c}, \hyperpage{5}
+
+\end{theindex}

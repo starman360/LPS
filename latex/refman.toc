@@ -1,0 +1,26 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble }{}
+\contentsline {chapter}{\numberline {1}File Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}File List}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}File Documentation}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}main/mesh\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}main.c File Reference}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Macro Definition Documentation}{4}{subsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.1.1}MESH\_PORT}{4}{subsubsection.2.1.1.1}
+\contentsline {subsubsection}{\numberline {2.1.1.2}MESH\_SERVER\_IP}{4}{subsubsection.2.1.1.2}
+\contentsline {subsubsection}{\numberline {2.1.1.3}RX\_SIZE}{4}{subsubsection.2.1.1.3}
+\contentsline {subsubsection}{\numberline {2.1.1.4}SCL\_PIN}{4}{subsubsection.2.1.1.4}
+\contentsline {subsubsection}{\numberline {2.1.1.5}SDA\_PIN}{4}{subsubsection.2.1.1.5}
+\contentsline {subsubsection}{\numberline {2.1.1.6}tag}{5}{subsubsection.2.1.1.6}
+\contentsline {subsubsection}{\numberline {2.1.1.7}TX\_SIZE}{5}{subsubsection.2.1.1.7}
+\contentsline {subsection}{\numberline {2.1.2}Function Documentation}{5}{subsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.2.1}app\_main()}{5}{subsubsection.2.1.2.1}
+\contentsline {subsubsection}{\numberline {2.1.2.2}disp\_info()}{6}{subsubsection.2.1.2.2}
+\contentsline {subsubsection}{\numberline {2.1.2.3}display\_clear()}{7}{subsubsection.2.1.2.3}
+\contentsline {subsubsection}{\numberline {2.1.2.4}esp\_mesh\_comm\_p2p\_start()}{7}{subsubsection.2.1.2.4}
+\contentsline {subsubsection}{\numberline {2.1.2.5}esp\_mesh\_p2p\_rx\_main()}{7}{subsubsection.2.1.2.5}
+\contentsline {subsubsection}{\numberline {2.1.2.6}esp\_mesh\_p2p\_tx\_main()}{9}{subsubsection.2.1.2.6}
+\contentsline {subsubsection}{\numberline {2.1.2.7}i2c\_master\_init()}{10}{subsubsection.2.1.2.7}
+\contentsline {subsubsection}{\numberline {2.1.2.8}mesh\_event\_handler()}{10}{subsubsection.2.1.2.8}
+\contentsline {subsubsection}{\numberline {2.1.2.9}ssd1306\_init()}{12}{subsubsection.2.1.2.9}
+\contentsline {subsubsection}{\numberline {2.1.2.10}task\_ssd1306\_display\_text()}{13}{subsubsection.2.1.2.10}
+\contentsline {section}{\numberline {2.2}mesh\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}main.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}c}{13}{section.2.2}
+\contentsline {chapter}{Index}{23}{section*.3}

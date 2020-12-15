@@ -1,0 +1,847 @@
+\hypertarget{mesh__main_8c}{}\doxysection{main/mesh\+\_\+main.c File Reference}
+\label{mesh__main_8c}\index{main/mesh\_main.c@{main/mesh\_main.c}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+wifi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+system.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+event\+\_\+loop.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+mesh.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+mesh\+\_\+internal.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}nvs\+\_\+flash.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}dwm1001.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+nvs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+interrupt.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}triangulation.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lwip/err.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lwip/sockets.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lwip/sys.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lwip/netdb.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lwip/dns.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}driver/i2c.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ssd1366.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}font8x8\+\_\+basic.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{mesh__main_8c_aaa981e599aa044183d4c19a576cdc8a9}{R\+X\+\_\+\+S\+I\+ZE}}~(1500)
+\item 
+\#define \mbox{\hyperlink{mesh__main_8c_a6a1eef3a18bfaa9a6c515692ffd9321e}{T\+X\+\_\+\+S\+I\+ZE}}~(1460)
+\item 
+\#define \mbox{\hyperlink{mesh__main_8c_a0d28862cf0300f82c05e77ce36fc415f}{M\+E\+S\+H\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+IP}}~\char`\"{}192.\+168.\+0.\+103\char`\"{}
+\item 
+\#define \mbox{\hyperlink{mesh__main_8c_a18c25eaf6d7220b554300a512776d52f}{M\+E\+S\+H\+\_\+\+P\+O\+RT}}~3000
+\item 
+\#define \mbox{\hyperlink{mesh__main_8c_a526d580d324bce60a3e964066fae77e3}{S\+D\+A\+\_\+\+P\+IN}}~G\+P\+I\+O\+\_\+\+N\+U\+M\+\_\+21
+\item 
+\#define \mbox{\hyperlink{mesh__main_8c_a06c967e78bcedcee909a70764f879433}{S\+C\+L\+\_\+\+P\+IN}}~G\+P\+I\+O\+\_\+\+N\+U\+M\+\_\+22
+\item 
+\#define \mbox{\hyperlink{mesh__main_8c_afec25c5f400b1e2ff79878c038385f0d}{tag}}~\char`\"{}S\+S\+D1306\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{mesh__main_8c_aca395462c6b7e4e924306cfc44a04453}{i2c\+\_\+master\+\_\+init}} ()
+\item 
+void \mbox{\hyperlink{mesh__main_8c_ab83a732f28055bd6835d031e13986f0b}{ssd1306\+\_\+init}} ()
+\item 
+void \mbox{\hyperlink{mesh__main_8c_a311b55caa2c35dab8bcf5cdd7e9298fc}{task\+\_\+ssd1306\+\_\+display\+\_\+text}} (const void $\ast$arg\+\_\+text)
+\item 
+void \mbox{\hyperlink{mesh__main_8c_a8da9870d8488d33189d2cb122bd28e0d}{display\+\_\+clear}} ()
+\item 
+void \mbox{\hyperlink{mesh__main_8c_a1ba06564196f4ecea1dbef1324c47648}{disp\+\_\+info}} ()
+\item 
+void \mbox{\hyperlink{mesh__main_8c_a1059c8afacec7168f7c156914d4e08de}{esp\+\_\+mesh\+\_\+p2p\+\_\+tx\+\_\+main}} (void $\ast$arg)
+\item 
+void \mbox{\hyperlink{mesh__main_8c_aa9c0547563005d41e07f1112bf58ac1b}{esp\+\_\+mesh\+\_\+p2p\+\_\+rx\+\_\+main}} (void $\ast$arg)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{mesh__main_8c_aa9dc638c8ef056dcce3e43536122bd92}{esp\+\_\+mesh\+\_\+comm\+\_\+p2p\+\_\+start}} (void)
+\item 
+void \mbox{\hyperlink{mesh__main_8c_ae3d8004545b77b5f40579f65bf3f542f}{mesh\+\_\+event\+\_\+handler}} (mesh\+\_\+event\+\_\+t event)
+\item 
+void \mbox{\hyperlink{mesh__main_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}{app\+\_\+main}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{mesh__main_8c_a18c25eaf6d7220b554300a512776d52f}\label{mesh__main_8c_a18c25eaf6d7220b554300a512776d52f}} 
+\index{mesh\_main.c@{mesh\_main.c}!MESH\_PORT@{MESH\_PORT}}
+\index{MESH\_PORT@{MESH\_PORT}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{MESH\_PORT}{MESH\_PORT}}
+{\footnotesize\ttfamily \#define M\+E\+S\+H\+\_\+\+P\+O\+RT~3000}
+
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00046}{46}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+\mbox{\Hypertarget{mesh__main_8c_a0d28862cf0300f82c05e77ce36fc415f}\label{mesh__main_8c_a0d28862cf0300f82c05e77ce36fc415f}} 
+\index{mesh\_main.c@{mesh\_main.c}!MESH\_SERVER\_IP@{MESH\_SERVER\_IP}}
+\index{MESH\_SERVER\_IP@{MESH\_SERVER\_IP}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{MESH\_SERVER\_IP}{MESH\_SERVER\_IP}}
+{\footnotesize\ttfamily \#define M\+E\+S\+H\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+IP~\char`\"{}192.\+168.\+0.\+103\char`\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00045}{45}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+\mbox{\Hypertarget{mesh__main_8c_aaa981e599aa044183d4c19a576cdc8a9}\label{mesh__main_8c_aaa981e599aa044183d4c19a576cdc8a9}} 
+\index{mesh\_main.c@{mesh\_main.c}!RX\_SIZE@{RX\_SIZE}}
+\index{RX\_SIZE@{RX\_SIZE}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{RX\_SIZE}{RX\_SIZE}}
+{\footnotesize\ttfamily \#define R\+X\+\_\+\+S\+I\+ZE~(1500)}
+
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00043}{43}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+\mbox{\Hypertarget{mesh__main_8c_a06c967e78bcedcee909a70764f879433}\label{mesh__main_8c_a06c967e78bcedcee909a70764f879433}} 
+\index{mesh\_main.c@{mesh\_main.c}!SCL\_PIN@{SCL\_PIN}}
+\index{SCL\_PIN@{SCL\_PIN}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{SCL\_PIN}{SCL\_PIN}}
+{\footnotesize\ttfamily \#define S\+C\+L\+\_\+\+P\+IN~G\+P\+I\+O\+\_\+\+N\+U\+M\+\_\+22}
+
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00048}{48}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+\mbox{\Hypertarget{mesh__main_8c_a526d580d324bce60a3e964066fae77e3}\label{mesh__main_8c_a526d580d324bce60a3e964066fae77e3}} 
+\index{mesh\_main.c@{mesh\_main.c}!SDA\_PIN@{SDA\_PIN}}
+\index{SDA\_PIN@{SDA\_PIN}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{SDA\_PIN}{SDA\_PIN}}
+{\footnotesize\ttfamily \#define S\+D\+A\+\_\+\+P\+IN~G\+P\+I\+O\+\_\+\+N\+U\+M\+\_\+21}
+
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00047}{47}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+\mbox{\Hypertarget{mesh__main_8c_afec25c5f400b1e2ff79878c038385f0d}\label{mesh__main_8c_afec25c5f400b1e2ff79878c038385f0d}} 
+\index{mesh\_main.c@{mesh\_main.c}!tag@{tag}}
+\index{tag@{tag}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{tag}{tag}}
+{\footnotesize\ttfamily \#define tag~\char`\"{}S\+S\+D1306\char`\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00049}{49}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+\mbox{\Hypertarget{mesh__main_8c_a6a1eef3a18bfaa9a6c515692ffd9321e}\label{mesh__main_8c_a6a1eef3a18bfaa9a6c515692ffd9321e}} 
+\index{mesh\_main.c@{mesh\_main.c}!TX\_SIZE@{TX\_SIZE}}
+\index{TX\_SIZE@{TX\_SIZE}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{TX\_SIZE}{TX\_SIZE}}
+{\footnotesize\ttfamily \#define T\+X\+\_\+\+S\+I\+ZE~(1460)}
+
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00044}{44}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mesh__main_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}\label{mesh__main_8c_a630544a7f0a2cc40d8a7fefab7e2fe70}} 
+\index{mesh\_main.c@{mesh\_main.c}!app\_main@{app\_main}}
+\index{app\_main@{app\_main}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{app\_main()}{app\_main()}}
+{\footnotesize\ttfamily void app\+\_\+main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Main Program start 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00575}{575}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00576 \{}
+\DoxyCodeLine{00577 }
+\DoxyCodeLine{00578     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00579     \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/       Global Initialization   -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{00580     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00581     loc.id = (uint16\_t *)malloc(\textcolor{keyword}{sizeof}(uint16\_t) * NODE\_LIMIT);   \textcolor{comment}{// Allocate \# of slots for distance id's}}
+\DoxyCodeLine{00582     loc.dist = (uint32\_t *)malloc(\textcolor{keyword}{sizeof}(uint32\_t) * NODE\_LIMIT); \textcolor{comment}{// Allocate \# of slots for distances}}
+\DoxyCodeLine{00583     loc.qf = (uint8\_t *)malloc(\textcolor{keyword}{sizeof}(uint8\_t) * NODE\_LIMIT);     \textcolor{comment}{// Allocate \# of slots for quality factor of distances}}
+\DoxyCodeLine{00584 }
+\DoxyCodeLine{00585     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00586     \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/       SPI Initialization      -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{00587     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00588     \textcolor{comment}{/* -\/-\/-\/ SPI Initializaion Start -\/-\/-\/ */}}
+\DoxyCodeLine{00589     spi\_init();}
+\DoxyCodeLine{00590     \textcolor{comment}{// -\/-\/ Add slight delay to let all systems comfortably boot up}}
+\DoxyCodeLine{00591     vTaskDelay(1000 / portTICK\_PERIOD\_MS);}
+\DoxyCodeLine{00592 }
+\DoxyCodeLine{00593     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00594     \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/       I2C Initialization      -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{00595     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00596 }
+\DoxyCodeLine{00597     \mbox{\hyperlink{mesh__main_8c_aca395462c6b7e4e924306cfc44a04453}{i2c\_master\_init}}();}
+\DoxyCodeLine{00598     \mbox{\hyperlink{mesh__main_8c_ab83a732f28055bd6835d031e13986f0b}{ssd1306\_init}}();}
+\DoxyCodeLine{00599 }
+\DoxyCodeLine{00600     \textcolor{comment}{// Display information on OLED}}
+\DoxyCodeLine{00601     \mbox{\hyperlink{mesh__main_8c_a1ba06564196f4ecea1dbef1324c47648}{disp\_info}}();}
+\DoxyCodeLine{00602 }
+\DoxyCodeLine{00603     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00604     \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/    Node Configuration Check   -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{00605     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00606     dwm\_resp\_cfg\_get dwm1cfg, dwm2cfg;}
+\DoxyCodeLine{00607     dwm\_resp\_err err1, err2;}
+\DoxyCodeLine{00608     \textcolor{keywordtype}{bool} rst = \textcolor{keyword}{false};}
+\DoxyCodeLine{00609     \textcolor{comment}{// -\/-\/ Check if designated Anchor DWM is configured as desired}}
+\DoxyCodeLine{00610     dwm2cfg = dwm\_cfg\_get(NODE\_TYPE\_ANC);}
+\DoxyCodeLine{00611     \textcolor{keywordflow}{if} ((dwm2cfg.cfg.cfg\_bytes[0] != DWM2\_CFG\_BYTE0) \&\& (dwm2cfg.cfg.cfg\_bytes[1] != DWM2\_CFG\_BYTE1))}
+\DoxyCodeLine{00612     \{}
+\DoxyCodeLine{00613         uint8\_t anccfg\_arg = 0x9A, intcfg\_arg = 0x02;}
+\DoxyCodeLine{00614         err2 = dwm\_anc\_set(anccfg\_arg, NODE\_TYPE\_ANC);}
+\DoxyCodeLine{00615         err2 = dwm\_rst(NODE\_TYPE\_ANC);}
+\DoxyCodeLine{00616         rst = \textcolor{keyword}{true};}
+\DoxyCodeLine{00617     \}}
+\DoxyCodeLine{00618     \textcolor{comment}{// -\/-\/ Check if designated Anchor DWM is configured as desired}}
+\DoxyCodeLine{00619     dwm1cfg = dwm\_cfg\_get(NODE\_TYPE\_TAG);}
+\DoxyCodeLine{00620     \textcolor{keywordflow}{if} ((dwm1cfg.cfg.cfg\_bytes[0] != DWM1\_CFG\_BYTE0) \&\& (dwm1cfg.cfg.cfg\_bytes[1] != DWM1\_CFG\_BYTE1))}
+\DoxyCodeLine{00621     \{}
+\DoxyCodeLine{00622         uint8\_t tagcfg\_arg[] = \{0x9A, 0x00\}, intcfg\_arg = 0x02;}
+\DoxyCodeLine{00623         err1 = dwm\_tag\_set(tagcfg\_arg, NODE\_TYPE\_TAG);}
+\DoxyCodeLine{00624         err1 = dwm\_int\_cfg(intcfg\_arg, NODE\_TYPE\_TAG); \textcolor{comment}{// Does not seem to work, will ignore interrupts for now}}
+\DoxyCodeLine{00625         err1 = dwm\_rst(NODE\_TYPE\_TAG);}
+\DoxyCodeLine{00626         rst = \textcolor{keyword}{true};}
+\DoxyCodeLine{00627     \}}
+\DoxyCodeLine{00628     \textcolor{comment}{// -\/-\/ If a DWM module had to reconfigure, we wait a few moments for it to reboot \& connect to other DWMs}}
+\DoxyCodeLine{00629     \textcolor{keywordflow}{if} (rst == \textcolor{keyword}{true})}
+\DoxyCodeLine{00630         vTaskDelay(5000 / portTICK\_PERIOD\_MS);}
+\DoxyCodeLine{00631 }
+\DoxyCodeLine{00632     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00633     \textcolor{comment}{/* -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/    Mesh Initializaion Start   -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
+\DoxyCodeLine{00634     \textcolor{comment}{/*****************************************************************************/}}
+\DoxyCodeLine{00635     \textcolor{comment}{// ESP\_ERROR\_CHECK(mesh\_light\_init());}}
+\DoxyCodeLine{00636     ESP\_ERROR\_CHECK(nvs\_flash\_init());}
+\DoxyCodeLine{00637     \textcolor{comment}{/*  tcpip initialization */}}
+\DoxyCodeLine{00638     tcpip\_adapter\_init();}
+\DoxyCodeLine{00639     \textcolor{comment}{/* for mesh}}
+\DoxyCodeLine{00640 \textcolor{comment}{     * stop DHCP server on softAP interface by default}}
+\DoxyCodeLine{00641 \textcolor{comment}{     * stop DHCP client on station interface by default}}
+\DoxyCodeLine{00642 \textcolor{comment}{     * */}}
+\DoxyCodeLine{00643     ESP\_ERROR\_CHECK(tcpip\_adapter\_dhcps\_stop(TCPIP\_ADAPTER\_IF\_AP));}
+\DoxyCodeLine{00644     ESP\_ERROR\_CHECK(tcpip\_adapter\_dhcpc\_stop(TCPIP\_ADAPTER\_IF\_STA));}
+\DoxyCodeLine{00645 \textcolor{preprocessor}{\#if 0}}
+\DoxyCodeLine{00646     \textcolor{comment}{/* static ip settings */}}
+\DoxyCodeLine{00647     tcpip\_adapter\_ip\_info\_t sta\_ip;}
+\DoxyCodeLine{00648     sta\_ip.ip.addr = ipaddr\_addr(\textcolor{stringliteral}{"192.168.1.102"});}
+\DoxyCodeLine{00649     sta\_ip.gw.addr = ipaddr\_addr(\textcolor{stringliteral}{"192.168.1.1"});}
+\DoxyCodeLine{00650     sta\_ip.netmask.addr = ipaddr\_addr(\textcolor{stringliteral}{"255.255.255.0"});}
+\DoxyCodeLine{00651     tcpip\_adapter\_set\_ip\_info(WIFI\_IF\_STA, \&sta\_ip);}
+\DoxyCodeLine{00652 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00653     \textcolor{comment}{/*  wifi initialization */}}
+\DoxyCodeLine{00654     ESP\_ERROR\_CHECK(esp\_event\_loop\_init(NULL, NULL));}
+\DoxyCodeLine{00655     wifi\_init\_config\_t config = WIFI\_INIT\_CONFIG\_DEFAULT();}
+\DoxyCodeLine{00656     ESP\_ERROR\_CHECK(esp\_wifi\_init(\&config));}
+\DoxyCodeLine{00657     ESP\_ERROR\_CHECK(esp\_wifi\_set\_storage(WIFI\_STORAGE\_FLASH));}
+\DoxyCodeLine{00658     ESP\_ERROR\_CHECK(esp\_wifi\_start());}
+\DoxyCodeLine{00659     \textcolor{comment}{/*  mesh initialization */}}
+\DoxyCodeLine{00660     ESP\_ERROR\_CHECK(esp\_mesh\_init());}
+\DoxyCodeLine{00661     ESP\_ERROR\_CHECK(esp\_mesh\_set\_max\_layer(CONFIG\_MESH\_MAX\_LAYER));}
+\DoxyCodeLine{00662     ESP\_ERROR\_CHECK(esp\_mesh\_set\_vote\_percentage(1));}
+\DoxyCodeLine{00663     ESP\_ERROR\_CHECK(esp\_mesh\_set\_ap\_assoc\_expire(10));}
+\DoxyCodeLine{00664 \textcolor{preprocessor}{\#ifdef MESH\_FIX\_ROOT}}
+\DoxyCodeLine{00665     ESP\_ERROR\_CHECK(esp\_mesh\_fix\_root(1));}
+\DoxyCodeLine{00666 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00667     mesh\_cfg\_t cfg = MESH\_INIT\_CONFIG\_DEFAULT();}
+\DoxyCodeLine{00668     \textcolor{comment}{/* mesh ID */}}
+\DoxyCodeLine{00669     memcpy((uint8\_t *)\&cfg.mesh\_id, MESH\_ID, 6);}
+\DoxyCodeLine{00670     \textcolor{comment}{/* mesh event callback */}}
+\DoxyCodeLine{00671     cfg.event\_cb = \&\mbox{\hyperlink{mesh__main_8c_ae3d8004545b77b5f40579f65bf3f542f}{mesh\_event\_handler}};}
+\DoxyCodeLine{00672     \textcolor{comment}{/* router */}}
+\DoxyCodeLine{00673     cfg.channel = CONFIG\_MESH\_CHANNEL;}
+\DoxyCodeLine{00674     cfg.router.ssid\_len = strlen(CONFIG\_MESH\_ROUTER\_SSID);}
+\DoxyCodeLine{00675     memcpy((uint8\_t *)\&cfg.router.ssid, CONFIG\_MESH\_ROUTER\_SSID, cfg.router.ssid\_len);}
+\DoxyCodeLine{00676     memcpy((uint8\_t *)\&cfg.router.password, CONFIG\_MESH\_ROUTER\_PASSWD,}
+\DoxyCodeLine{00677            strlen(CONFIG\_MESH\_ROUTER\_PASSWD));}
+\DoxyCodeLine{00678     \textcolor{comment}{/* mesh softAP */}}
+\DoxyCodeLine{00679     ESP\_ERROR\_CHECK(esp\_mesh\_set\_ap\_authmode(CONFIG\_MESH\_AP\_AUTHMODE));}
+\DoxyCodeLine{00680     cfg.mesh\_ap.max\_connection = CONFIG\_MESH\_AP\_CONNECTIONS;}
+\DoxyCodeLine{00681     memcpy((uint8\_t *)\&cfg.mesh\_ap.password, CONFIG\_MESH\_AP\_PASSWD,}
+\DoxyCodeLine{00682            strlen(CONFIG\_MESH\_AP\_PASSWD));}
+\DoxyCodeLine{00683     ESP\_ERROR\_CHECK(esp\_mesh\_set\_config(\&cfg));}
+\DoxyCodeLine{00684     \textcolor{comment}{/* mesh start */}}
+\DoxyCodeLine{00685     ESP\_ERROR\_CHECK(esp\_mesh\_start());}
+\DoxyCodeLine{00686     ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"mesh starts successfully, heap:\%d, \%s\(\backslash\)n"}, esp\_get\_free\_heap\_size(),}
+\DoxyCodeLine{00687              esp\_mesh\_is\_root\_fixed() ? \textcolor{stringliteral}{"root fixed"} : \textcolor{stringliteral}{"root not fixed"});}
+\DoxyCodeLine{00688 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_a1ba06564196f4ecea1dbef1324c47648}\label{mesh__main_8c_a1ba06564196f4ecea1dbef1324c47648}} 
+\index{mesh\_main.c@{mesh\_main.c}!disp\_info@{disp\_info}}
+\index{disp\_info@{disp\_info}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{disp\_info()}{disp\_info()}}
+{\footnotesize\ttfamily void disp\+\_\+info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Display general information on the O\+L\+ED screen about status of the device. This can range from if it is the master node to connection to the mesh status. 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00201}{201}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00202 \{}
+\DoxyCodeLine{00203     \textcolor{keywordtype}{char} str[128] = \{}
+\DoxyCodeLine{00204         0,}
+\DoxyCodeLine{00205     \};}
+\DoxyCodeLine{00206     \mbox{\hyperlink{mesh__main_8c_a8da9870d8488d33189d2cb122bd28e0d}{display\_clear}}();}
+\DoxyCodeLine{00207     vTaskDelay(100 / portTICK\_PERIOD\_MS);}
+\DoxyCodeLine{00208     \textcolor{keywordflow}{if} (esp\_mesh\_is\_root())}
+\DoxyCodeLine{00209     \{}
+\DoxyCodeLine{00210         strcat(str, \textcolor{stringliteral}{"MASTER NODE\(\backslash\)n"});}
+\DoxyCodeLine{00211     \}}
+\DoxyCodeLine{00212     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00213     \{}
+\DoxyCodeLine{00214         strcat(str, \textcolor{stringliteral}{"\(\backslash\)n"});}
+\DoxyCodeLine{00215     \}}
+\DoxyCodeLine{00216     strcat(str, \textcolor{stringliteral}{"MESH: "});}
+\DoxyCodeLine{00217     \textcolor{keywordflow}{if} (is\_mesh\_connected)}
+\DoxyCodeLine{00218     \{}
+\DoxyCodeLine{00219         strcat(str, \textcolor{stringliteral}{"CONNECT\(\backslash\)n"});}
+\DoxyCodeLine{00220     \}}
+\DoxyCodeLine{00221     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00222     \{}
+\DoxyCodeLine{00223         strcat(str, \textcolor{stringliteral}{"NOT CONN\(\backslash\)n"});}
+\DoxyCodeLine{00224     \}}
+\DoxyCodeLine{00225     printf(\textcolor{stringliteral}{"PRINTING... \%s\(\backslash\)n"}, str);}
+\DoxyCodeLine{00226     xTaskCreate(\&\mbox{\hyperlink{mesh__main_8c_a311b55caa2c35dab8bcf5cdd7e9298fc}{task\_ssd1306\_display\_text}}, \textcolor{stringliteral}{"ssd1306\_display\_text"}, 2048,}
+\DoxyCodeLine{00227                 (\textcolor{keywordtype}{void} *)str, 6, NULL);}
+\DoxyCodeLine{00228 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_a8da9870d8488d33189d2cb122bd28e0d}\label{mesh__main_8c_a8da9870d8488d33189d2cb122bd28e0d}} 
+\index{mesh\_main.c@{mesh\_main.c}!display\_clear@{display\_clear}}
+\index{display\_clear@{display\_clear}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{display\_clear()}{display\_clear()}}
+{\footnotesize\ttfamily void display\+\_\+clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+clear the O\+L\+ED screen of text 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00191}{191}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00192 \{}
+\DoxyCodeLine{00193     xTaskCreate(\&\mbox{\hyperlink{mesh__main_8c_a311b55caa2c35dab8bcf5cdd7e9298fc}{task\_ssd1306\_display\_text}}, \textcolor{stringliteral}{"ssd1306\_display\_text"}, 2048,}
+\DoxyCodeLine{00194                 (\textcolor{keywordtype}{void} *)\textcolor{stringliteral}{"                \(\backslash\)n                \(\backslash\)n                \(\backslash\)n                \(\backslash\)n                \(\backslash\)n                \(\backslash\)n                \(\backslash\)n                "}, 6, NULL);}
+\DoxyCodeLine{00195 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_aa9dc638c8ef056dcce3e43536122bd92}\label{mesh__main_8c_aa9dc638c8ef056dcce3e43536122bd92}} 
+\index{mesh\_main.c@{mesh\_main.c}!esp\_mesh\_comm\_p2p\_start@{esp\_mesh\_comm\_p2p\_start}}
+\index{esp\_mesh\_comm\_p2p\_start@{esp\_mesh\_comm\_p2p\_start}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{esp\_mesh\_comm\_p2p\_start()}{esp\_mesh\_comm\_p2p\_start()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t esp\+\_\+mesh\+\_\+comm\+\_\+p2p\+\_\+start (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Create the Mesh RX and TX tasks for the Free\+R\+T\+OS to handle 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00394}{394}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00395 \{}
+\DoxyCodeLine{00396     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} is\_comm\_p2p\_started = \textcolor{keyword}{false};}
+\DoxyCodeLine{00397     \textcolor{keywordflow}{if} (!is\_comm\_p2p\_started)}
+\DoxyCodeLine{00398     \{}
+\DoxyCodeLine{00399         is\_comm\_p2p\_started = \textcolor{keyword}{true};}
+\DoxyCodeLine{00400         xTaskCreate(\mbox{\hyperlink{mesh__main_8c_a1059c8afacec7168f7c156914d4e08de}{esp\_mesh\_p2p\_tx\_main}}, \textcolor{stringliteral}{"MPTX"}, 3072, NULL, 5, NULL);}
+\DoxyCodeLine{00401         xTaskCreate(\mbox{\hyperlink{mesh__main_8c_aa9c0547563005d41e07f1112bf58ac1b}{esp\_mesh\_p2p\_rx\_main}}, \textcolor{stringliteral}{"MPRX"}, 3072, NULL, 5, NULL);}
+\DoxyCodeLine{00402     \}}
+\DoxyCodeLine{00403     \textcolor{keywordflow}{return} ESP\_OK;}
+\DoxyCodeLine{00404 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_aa9c0547563005d41e07f1112bf58ac1b}\label{mesh__main_8c_aa9c0547563005d41e07f1112bf58ac1b}} 
+\index{mesh\_main.c@{mesh\_main.c}!esp\_mesh\_p2p\_rx\_main@{esp\_mesh\_p2p\_rx\_main}}
+\index{esp\_mesh\_p2p\_rx\_main@{esp\_mesh\_p2p\_rx\_main}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{esp\_mesh\_p2p\_rx\_main()}{esp\_mesh\_p2p\_rx\_main()}}
+{\footnotesize\ttfamily void esp\+\_\+mesh\+\_\+p2p\+\_\+rx\+\_\+main (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+Task that collects any data sent over the mesh to this particular data. 
+\begin{DoxyParams}{Parameters}
+{\em arg} & any mesh arguments needed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00289}{289}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00290 \{}
+\DoxyCodeLine{00291     printf(\textcolor{stringliteral}{"RX START\(\backslash\)n"});}
+\DoxyCodeLine{00292     \textcolor{keywordtype}{int} recv\_count = 0;}
+\DoxyCodeLine{00293     esp\_err\_t err;}
+\DoxyCodeLine{00294     mesh\_addr\_t from;}
+\DoxyCodeLine{00295     \textcolor{keywordtype}{int} send\_count = 0;}
+\DoxyCodeLine{00296     mesh\_data\_t data;}
+\DoxyCodeLine{00297     \textcolor{keywordtype}{int} flag = 0;}
+\DoxyCodeLine{00298     data.data = rx\_buf;}
+\DoxyCodeLine{00299     data.size = \mbox{\hyperlink{mesh__main_8c_aaa981e599aa044183d4c19a576cdc8a9}{RX\_SIZE}};}
+\DoxyCodeLine{00300 }
+\DoxyCodeLine{00301     \textcolor{comment}{// Set master address to static}}
+\DoxyCodeLine{00302     mesh\_addr\_t serverAddr;}
+\DoxyCodeLine{00303     IP4\_ADDR(\&serverAddr.mip.ip4, 192, 168, 0, 103); \textcolor{comment}{// 192.168.0.103 is my pc}}
+\DoxyCodeLine{00304     serverAddr.mip.port = 3000;                      \textcolor{comment}{// Server Port}}
+\DoxyCodeLine{00305 }
+\DoxyCodeLine{00306     \textcolor{comment}{// Setup socket to GUI to send data to}}
+\DoxyCodeLine{00307     \textcolor{keyword}{struct }sockaddr\_in tcpServerAddr;}
+\DoxyCodeLine{00308     tcpServerAddr.sin\_addr.s\_addr = inet\_addr(\mbox{\hyperlink{mesh__main_8c_a0d28862cf0300f82c05e77ce36fc415f}{MESH\_SERVER\_IP}});}
+\DoxyCodeLine{00309     tcpServerAddr.sin\_family = AF\_INET;}
+\DoxyCodeLine{00310     tcpServerAddr.sin\_port = htons(\mbox{\hyperlink{mesh__main_8c_a18c25eaf6d7220b554300a512776d52f}{MESH\_PORT}});}
+\DoxyCodeLine{00311 }
+\DoxyCodeLine{00312     is\_running = \textcolor{keyword}{true};}
+\DoxyCodeLine{00313 }
+\DoxyCodeLine{00314     \textcolor{keywordtype}{int} s;}
+\DoxyCodeLine{00315     \textcolor{keywordflow}{while} (is\_running)}
+\DoxyCodeLine{00316     \{}
+\DoxyCodeLine{00317         printf(\textcolor{stringliteral}{"RX PHASE\(\backslash\)n"});}
+\DoxyCodeLine{00318         data.size = \mbox{\hyperlink{mesh__main_8c_aaa981e599aa044183d4c19a576cdc8a9}{RX\_SIZE}};}
+\DoxyCodeLine{00319         }
+\DoxyCodeLine{00320         \textcolor{comment}{// Gather the data sent to it from other nodes}}
+\DoxyCodeLine{00321         err = esp\_mesh\_recv(\&from, \&data, portMAX\_DELAY, \&flag, NULL, 0);}
+\DoxyCodeLine{00322         \textcolor{keywordflow}{if} (err != ESP\_OK || !data.size)}
+\DoxyCodeLine{00323         \{}
+\DoxyCodeLine{00324             ESP\_LOGE(MESH\_TAG, \textcolor{stringliteral}{"err:0x\%x, size:\%d"}, err, data.size);}
+\DoxyCodeLine{00325             \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00326         \}}
+\DoxyCodeLine{00327 }
+\DoxyCodeLine{00328         \textcolor{comment}{// If the node is root (master)}}
+\DoxyCodeLine{00329         \textcolor{keywordflow}{if} (esp\_mesh\_is\_root())}
+\DoxyCodeLine{00330         \{}
+\DoxyCodeLine{00331             ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"*** I AM ROOT ***"});}
+\DoxyCodeLine{00332             uint8\_t numOfDists = data.data[0];}
+\DoxyCodeLine{00333             uint16\_t minid = data.data[1] | (data.data[2] << 8);}
+\DoxyCodeLine{00334             \textcolor{comment}{// Find minid in node order}}
+\DoxyCodeLine{00335             uint8\_t idloc = getnodeorder(minid);}
+\DoxyCodeLine{00336 }
+\DoxyCodeLine{00337             \textcolor{comment}{// parse through the recieved data and structure the data for easy computing}}
+\DoxyCodeLine{00338             \textcolor{keywordflow}{for} (uint8\_t i = 0; i < numOfDists; i++)}
+\DoxyCodeLine{00339             \{}
+\DoxyCodeLine{00340                 setDistance(idloc, data.data[3 + 7 * i] | (data.data[4 + 7 * i] << 8), data.data[5 + 7 * i] | (data.data[6 + 7 * i] << 8) | (data.data[7 + 7 * i] << 16) | (data.data[8 + 7 * i] << 24));}
+\DoxyCodeLine{00341             \}}
+\DoxyCodeLine{00342 }
+\DoxyCodeLine{00343             \textcolor{comment}{// compute the coordinates from the distance data}}
+\DoxyCodeLine{00344             get\_coords();}
+\DoxyCodeLine{00345 }
+\DoxyCodeLine{00346             \textcolor{comment}{// Print Distance Table}}
+\DoxyCodeLine{00347             printf(\textcolor{stringliteral}{"Distance Table\(\backslash\)n"});}
+\DoxyCodeLine{00348             \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 4; i++)}
+\DoxyCodeLine{00349             \{}
+\DoxyCodeLine{00350                 \textcolor{keywordflow}{for} (uint8\_t j = 0; j < 4; j++)}
+\DoxyCodeLine{00351                 \{}
+\DoxyCodeLine{00352                     printf(\textcolor{stringliteral}{" \%f,\(\backslash\)t "}, dist[i][j]);}
+\DoxyCodeLine{00353                 \}}
+\DoxyCodeLine{00354                 printf(\textcolor{stringliteral}{"\(\backslash\)n"});}
+\DoxyCodeLine{00355             \}}
+\DoxyCodeLine{00356             printf(\textcolor{stringliteral}{"XYZ Size = \%d\(\backslash\)n"}, xyz.size);}
+\DoxyCodeLine{00357 }
+\DoxyCodeLine{00358             \textcolor{comment}{// Print Coords}}
+\DoxyCodeLine{00359             printf(\textcolor{stringliteral}{"Node 1: x = \%f ,y = \%f, z = \%f\(\backslash\)n"}, xyz.n1.x, xyz.n1.y, xyz.n1.z);}
+\DoxyCodeLine{00360             printf(\textcolor{stringliteral}{"Node 2: x = \%f ,y = \%f, z = \%f\(\backslash\)n"}, xyz.n2.x, xyz.n2.y, xyz.n2.z);}
+\DoxyCodeLine{00361             printf(\textcolor{stringliteral}{"Node 3: x = \%f ,y = \%f, z = \%f\(\backslash\)n"}, xyz.n3.x, xyz.n3.y, xyz.n3.z);}
+\DoxyCodeLine{00362             printf(\textcolor{stringliteral}{"Node 4: x = \%f ,y = \%f, z = \%f\(\backslash\)n"}, xyz.n4.x, xyz.n4.y, xyz.n4.z);}
+\DoxyCodeLine{00363 }
+\DoxyCodeLine{00364             \textcolor{comment}{// Establish Socket connection}}
+\DoxyCodeLine{00365             s = socket(AF\_INET, SOCK\_STREAM, 0);}
+\DoxyCodeLine{00366             connect(s, (\textcolor{keyword}{struct} sockaddr *)\&tcpServerAddr, \textcolor{keyword}{sizeof}(tcpServerAddr));}
+\DoxyCodeLine{00367 }
+\DoxyCodeLine{00368             \textcolor{comment}{// Format data for GUI}}
+\DoxyCodeLine{00369             \textcolor{keywordtype}{char} str[110];}
+\DoxyCodeLine{00370             sprintf(str, \textcolor{stringliteral}{"\%f,\%f,\%f;\%f,\%f,\%f;\%f,\%f,\%f;\%f,\%f,\%f"}, xyz.n1.x, xyz.n1.y, xyz.n1.z, xyz.n2.x, xyz.n2.y, xyz.n2.z, xyz.n3.x, xyz.n3.y, xyz.n3.z, xyz.n4.x, xyz.n4.y, xyz.n4.z);}
+\DoxyCodeLine{00371 }
+\DoxyCodeLine{00372 }
+\DoxyCodeLine{00373             \textcolor{comment}{// Send data to the GUI. If GUI is not connected, memory overflow errors may appear}}
+\DoxyCodeLine{00374             write(s, str, strlen(str));}
+\DoxyCodeLine{00375             close(s);}
+\DoxyCodeLine{00376 }
+\DoxyCodeLine{00377             \textcolor{comment}{// Print Node Order}}
+\DoxyCodeLine{00378             printf(\textcolor{stringliteral}{"\(\backslash\)nNode Order\(\backslash\)n"});}
+\DoxyCodeLine{00379             \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 4; i++)}
+\DoxyCodeLine{00380             \{}
+\DoxyCodeLine{00381                 printf(\textcolor{stringliteral}{" \%d,\(\backslash\)t "}, nodeorder[i]);}
+\DoxyCodeLine{00382             \}}
+\DoxyCodeLine{00383             printf(\textcolor{stringliteral}{"\(\backslash\)n"});}
+\DoxyCodeLine{00384         \}}
+\DoxyCodeLine{00385         \textcolor{comment}{// Update OLED Screen with latest information}}
+\DoxyCodeLine{00386         \mbox{\hyperlink{mesh__main_8c_a1ba06564196f4ecea1dbef1324c47648}{disp\_info}}();}
+\DoxyCodeLine{00387     \}}
+\DoxyCodeLine{00388     vTaskDelete(NULL);}
+\DoxyCodeLine{00389 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_a1059c8afacec7168f7c156914d4e08de}\label{mesh__main_8c_a1059c8afacec7168f7c156914d4e08de}} 
+\index{mesh\_main.c@{mesh\_main.c}!esp\_mesh\_p2p\_tx\_main@{esp\_mesh\_p2p\_tx\_main}}
+\index{esp\_mesh\_p2p\_tx\_main@{esp\_mesh\_p2p\_tx\_main}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{esp\_mesh\_p2p\_tx\_main()}{esp\_mesh\_p2p\_tx\_main()}}
+{\footnotesize\ttfamily void esp\+\_\+mesh\+\_\+p2p\+\_\+tx\+\_\+main (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+Task to send data over the mesh. In particular it takes the data recieved by the decawave and sends it to the master node. 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00233}{233}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00234 \{}
+\DoxyCodeLine{00235     \textcolor{keywordtype}{int} i;}
+\DoxyCodeLine{00236     esp\_err\_t err;}
+\DoxyCodeLine{00237     \textcolor{keywordtype}{int} send\_count = 0;}
+\DoxyCodeLine{00238     mesh\_addr\_t route\_table[CONFIG\_MESH\_ROUTE\_TABLE\_SIZE];}
+\DoxyCodeLine{00239     \textcolor{keywordtype}{int} route\_table\_size = 0;}
+\DoxyCodeLine{00240     mesh\_data\_t data;}
+\DoxyCodeLine{00241     data.data = tx\_buf;}
+\DoxyCodeLine{00242     data.size = \textcolor{keyword}{sizeof}(tx\_buf);}
+\DoxyCodeLine{00243     data.proto = MESH\_PROTO\_BIN;}
+\DoxyCodeLine{00244 }
+\DoxyCodeLine{00245     is\_running = \textcolor{keyword}{true};}
+\DoxyCodeLine{00246     \textcolor{comment}{// This task should always be running}}
+\DoxyCodeLine{00247     \textcolor{keywordflow}{while} (is\_running)}
+\DoxyCodeLine{00248     \{}
+\DoxyCodeLine{00249         \textcolor{comment}{// If root: gets routing table and updates local}}
+\DoxyCodeLine{00250         \textcolor{keywordflow}{if} (esp\_mesh\_is\_root())}
+\DoxyCodeLine{00251             esp\_mesh\_get\_routing\_table((mesh\_addr\_t *)\&route\_table, CONFIG\_MESH\_ROUTE\_TABLE\_SIZE * 6, \&route\_table\_size);}
+\DoxyCodeLine{00252 }
+\DoxyCodeLine{00253         \textcolor{comment}{// Everyone does this -\/ Gets an array of distances from the decawave}}
+\DoxyCodeLine{00254         \textcolor{keywordtype}{int} errr = dwm\_tag\_loc\_get(\&tx\_buf, NODE\_TYPE\_TAG);}
+\DoxyCodeLine{00255         printf(\textcolor{stringliteral}{"err = \%d\(\backslash\)n"}, errr);}
+\DoxyCodeLine{00256         }
+\DoxyCodeLine{00257         \textcolor{comment}{// If there is no error}}
+\DoxyCodeLine{00258         \textcolor{keywordflow}{if} (errr != -\/1)}
+\DoxyCodeLine{00259         \{}
+\DoxyCodeLine{00260             \textcolor{comment}{// Send a msg to the root in the mesh (master) with the decawave data}}
+\DoxyCodeLine{00261             err = esp\_mesh\_send(\&mesh\_root\_addr, \&data, MESH\_DATA\_P2P, NULL, 0);}
+\DoxyCodeLine{00262             \textcolor{keywordflow}{if} (err)}
+\DoxyCodeLine{00263                 ESP\_LOGE(MESH\_TAG, \textcolor{stringliteral}{"ERROR ON TRANSMIT"});}
+\DoxyCodeLine{00264         \}}
+\DoxyCodeLine{00265         }
+\DoxyCodeLine{00266         \textcolor{comment}{// Delay 100ms}}
+\DoxyCodeLine{00267         vTaskDelay(1 * 100 / portTICK\_RATE\_MS);}
+\DoxyCodeLine{00268 }
+\DoxyCodeLine{00269         \textcolor{comment}{// If the node is root node make sure it doesn't use too much comutational energy with this task and slow it down.}}
+\DoxyCodeLine{00270         \textcolor{keywordflow}{if} (esp\_mesh\_is\_root())}
+\DoxyCodeLine{00271         \{}
+\DoxyCodeLine{00272             ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"*** I AM ROOT ***"});}
+\DoxyCodeLine{00273             \textcolor{comment}{/* if route\_table\_size is less than 10, add delay to avoid watchdog in this task. */}}
+\DoxyCodeLine{00274             \textcolor{keywordflow}{if} (route\_table\_size < 10)}
+\DoxyCodeLine{00275             \{}
+\DoxyCodeLine{00276                 vTaskDelay(1 * 100 / portTICK\_RATE\_MS);}
+\DoxyCodeLine{00277             \}}
+\DoxyCodeLine{00278         \}}
+\DoxyCodeLine{00279     \}}
+\DoxyCodeLine{00280 }
+\DoxyCodeLine{00281     \textcolor{comment}{// If the program gets here, release task from memory or the task queue}}
+\DoxyCodeLine{00282     vTaskDelete(NULL);}
+\DoxyCodeLine{00283 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_aca395462c6b7e4e924306cfc44a04453}\label{mesh__main_8c_aca395462c6b7e4e924306cfc44a04453}} 
+\index{mesh\_main.c@{mesh\_main.c}!i2c\_master\_init@{i2c\_master\_init}}
+\index{i2c\_master\_init@{i2c\_master\_init}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{i2c\_master\_init()}{i2c\_master\_init()}}
+{\footnotesize\ttfamily void i2c\+\_\+master\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+I2C Start Master at 1Mhz 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00080}{80}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00081 \{}
+\DoxyCodeLine{00082     i2c\_config\_t i2c\_config = \{}
+\DoxyCodeLine{00083         .mode = I2C\_MODE\_MASTER,}
+\DoxyCodeLine{00084         .sda\_io\_num = \mbox{\hyperlink{mesh__main_8c_a526d580d324bce60a3e964066fae77e3}{SDA\_PIN}},}
+\DoxyCodeLine{00085         .scl\_io\_num = \mbox{\hyperlink{mesh__main_8c_a06c967e78bcedcee909a70764f879433}{SCL\_PIN}},}
+\DoxyCodeLine{00086         .sda\_pullup\_en = GPIO\_PULLUP\_ENABLE,}
+\DoxyCodeLine{00087         .scl\_pullup\_en = GPIO\_PULLUP\_ENABLE,}
+\DoxyCodeLine{00088         .master.clk\_speed = 1000000\};}
+\DoxyCodeLine{00089     i2c\_param\_config(I2C\_NUM\_0, \&i2c\_config);}
+\DoxyCodeLine{00090     i2c\_driver\_install(I2C\_NUM\_0, I2C\_MODE\_MASTER, 0, 0, 0);}
+\DoxyCodeLine{00091 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_ae3d8004545b77b5f40579f65bf3f542f}\label{mesh__main_8c_ae3d8004545b77b5f40579f65bf3f542f}} 
+\index{mesh\_main.c@{mesh\_main.c}!mesh\_event\_handler@{mesh\_event\_handler}}
+\index{mesh\_event\_handler@{mesh\_event\_handler}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{mesh\_event\_handler()}{mesh\_event\_handler()}}
+{\footnotesize\ttfamily void mesh\+\_\+event\+\_\+handler (\begin{DoxyParamCaption}\item[{mesh\+\_\+event\+\_\+t}]{event }\end{DoxyParamCaption})}
+
+Mesh Event handler handles all status changes of the E\+SP If the node is root node, set it for the entire node to use that information to handle seperate tasks and to showcase it on the O\+L\+ED screen 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00410}{410}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00411 \{}
+\DoxyCodeLine{00412     mesh\_addr\_t \textcolor{keywordtype}{id} = \{}
+\DoxyCodeLine{00413         0,}
+\DoxyCodeLine{00414     \};}
+\DoxyCodeLine{00415     \textcolor{keyword}{static} uint8\_t last\_layer = 0;}
+\DoxyCodeLine{00416     ESP\_LOGD(MESH\_TAG, \textcolor{stringliteral}{"esp\_event\_handler:\%d"}, event.id);}
+\DoxyCodeLine{00417 }
+\DoxyCodeLine{00418     \textcolor{keywordflow}{switch} (event.id)}
+\DoxyCodeLine{00419     \{}
+\DoxyCodeLine{00420     \textcolor{keywordflow}{case} MESH\_EVENT\_STARTED:}
+\DoxyCodeLine{00421         esp\_mesh\_get\_id(\&\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00422         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_STARTED>ID:"} MACSTR \textcolor{stringliteral}{""}, MAC2STR(\textcolor{keywordtype}{id}.addr));}
+\DoxyCodeLine{00423         is\_mesh\_connected = \textcolor{keyword}{false};}
+\DoxyCodeLine{00424         mesh\_layer = esp\_mesh\_get\_layer();}
+\DoxyCodeLine{00425         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00426     \textcolor{keywordflow}{case} MESH\_EVENT\_STOPPED:}
+\DoxyCodeLine{00427         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_STOPPED>"});}
+\DoxyCodeLine{00428         is\_mesh\_connected = \textcolor{keyword}{false};}
+\DoxyCodeLine{00429         mesh\_layer = esp\_mesh\_get\_layer();}
+\DoxyCodeLine{00430         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00431     \textcolor{keywordflow}{case} MESH\_EVENT\_CHILD\_CONNECTED:}
+\DoxyCodeLine{00432         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_CHILD\_CONNECTED>aid:\%d, "} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00433                  event.info.child\_connected.aid,}
+\DoxyCodeLine{00434                  MAC2STR(event.info.child\_connected.mac));}
+\DoxyCodeLine{00435         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00436     \textcolor{keywordflow}{case} MESH\_EVENT\_CHILD\_DISCONNECTED:}
+\DoxyCodeLine{00437         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_CHILD\_DISCONNECTED>aid:\%d, "} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00438                  event.info.child\_disconnected.aid,}
+\DoxyCodeLine{00439                  MAC2STR(event.info.child\_disconnected.mac));}
+\DoxyCodeLine{00440         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00441     \textcolor{keywordflow}{case} MESH\_EVENT\_ROUTING\_TABLE\_ADD:}
+\DoxyCodeLine{00442         ESP\_LOGW(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_ROUTING\_TABLE\_ADD>add \%d, new:\%d"},}
+\DoxyCodeLine{00443                  event.info.routing\_table.rt\_size\_change,}
+\DoxyCodeLine{00444                  event.info.routing\_table.rt\_size\_new);}
+\DoxyCodeLine{00445         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00446     \textcolor{keywordflow}{case} MESH\_EVENT\_ROUTING\_TABLE\_REMOVE:}
+\DoxyCodeLine{00447         ESP\_LOGW(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_ROUTING\_TABLE\_REMOVE>remove \%d, new:\%d"},}
+\DoxyCodeLine{00448                  event.info.routing\_table.rt\_size\_change,}
+\DoxyCodeLine{00449                  event.info.routing\_table.rt\_size\_new);}
+\DoxyCodeLine{00450         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00451     \textcolor{keywordflow}{case} MESH\_EVENT\_NO\_PARENT\_FOUND:}
+\DoxyCodeLine{00452         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_NO\_PARENT\_FOUND>scan times:\%d"},}
+\DoxyCodeLine{00453                  event.info.no\_parent.scan\_times);}
+\DoxyCodeLine{00454         \textcolor{comment}{/* TODO handler for the failure */}}
+\DoxyCodeLine{00455         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00456     \textcolor{keywordflow}{case} MESH\_EVENT\_PARENT\_CONNECTED:}
+\DoxyCodeLine{00457         esp\_mesh\_get\_id(\&\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00458         mesh\_layer = \textcolor{keyword}{event}.info.connected.self\_layer;}
+\DoxyCodeLine{00459         memcpy(\&mesh\_parent\_addr.addr, event.info.connected.connected.bssid, 6);}
+\DoxyCodeLine{00460         ESP\_LOGI(MESH\_TAG,}
+\DoxyCodeLine{00461                  \textcolor{stringliteral}{"<MESH\_EVENT\_PARENT\_CONNECTED>layer:\%d-\/-\/>\%d, parent:"} MACSTR \textcolor{stringliteral}{"\%s, ID:"} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00462                  last\_layer, mesh\_layer, MAC2STR(mesh\_parent\_addr.addr),}
+\DoxyCodeLine{00463                  esp\_mesh\_is\_root() ? \textcolor{stringliteral}{"<ROOT>"} : (mesh\_layer == 2) ? \textcolor{stringliteral}{"<layer2>"} : \textcolor{stringliteral}{""}, MAC2STR(\textcolor{keywordtype}{id}.addr));}
+\DoxyCodeLine{00464         last\_layer = mesh\_layer;}
+\DoxyCodeLine{00465         \textcolor{comment}{// mesh\_connected\_indicator(mesh\_layer);}}
+\DoxyCodeLine{00466         is\_mesh\_connected = \textcolor{keyword}{true};}
+\DoxyCodeLine{00467         \textcolor{keywordflow}{if} (esp\_mesh\_is\_root())}
+\DoxyCodeLine{00468         \{}
+\DoxyCodeLine{00469             tcpip\_adapter\_dhcpc\_start(TCPIP\_ADAPTER\_IF\_STA);}
+\DoxyCodeLine{00470         \}}
+\DoxyCodeLine{00471         \mbox{\hyperlink{mesh__main_8c_aa9dc638c8ef056dcce3e43536122bd92}{esp\_mesh\_comm\_p2p\_start}}();}
+\DoxyCodeLine{00472         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00473     \textcolor{keywordflow}{case} MESH\_EVENT\_PARENT\_DISCONNECTED:}
+\DoxyCodeLine{00474         ESP\_LOGI(MESH\_TAG,}
+\DoxyCodeLine{00475                  \textcolor{stringliteral}{"<MESH\_EVENT\_PARENT\_DISCONNECTED>reason:\%d"},}
+\DoxyCodeLine{00476                  event.info.disconnected.reason);}
+\DoxyCodeLine{00477         is\_mesh\_connected = \textcolor{keyword}{false};}
+\DoxyCodeLine{00478         \textcolor{comment}{// mesh\_disconnected\_indicator();}}
+\DoxyCodeLine{00479         mesh\_layer = esp\_mesh\_get\_layer();}
+\DoxyCodeLine{00480         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00481     \textcolor{keywordflow}{case} MESH\_EVENT\_LAYER\_CHANGE:}
+\DoxyCodeLine{00482         mesh\_layer = \textcolor{keyword}{event}.info.layer\_change.new\_layer;}
+\DoxyCodeLine{00483         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_LAYER\_CHANGE>layer:\%d-\/-\/>\%d\%s"},}
+\DoxyCodeLine{00484                  last\_layer, mesh\_layer,}
+\DoxyCodeLine{00485                  esp\_mesh\_is\_root() ? \textcolor{stringliteral}{"<ROOT>"} : (mesh\_layer == 2) ? \textcolor{stringliteral}{"<layer2>"} : \textcolor{stringliteral}{""});}
+\DoxyCodeLine{00486         last\_layer = mesh\_layer;}
+\DoxyCodeLine{00487         \textcolor{comment}{// mesh\_connected\_indicator(mesh\_layer);}}
+\DoxyCodeLine{00488         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00489     \textcolor{keywordflow}{case} MESH\_EVENT\_ROOT\_ADDRESS:}
+\DoxyCodeLine{00490         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_ROOT\_ADDRESS>root address:"} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00491                  MAC2STR(event.info.root\_addr.addr));}
+\DoxyCodeLine{00492         mesh\_root\_addr = \textcolor{keyword}{event}.info.root\_addr;}
+\DoxyCodeLine{00493 }
+\DoxyCodeLine{00494         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00495     \textcolor{keywordflow}{case} MESH\_EVENT\_ROOT\_GOT\_IP:}
+\DoxyCodeLine{00496         \textcolor{comment}{/* root starts to connect to server */}}
+\DoxyCodeLine{00497         ESP\_LOGI(MESH\_TAG,}
+\DoxyCodeLine{00498                  \textcolor{stringliteral}{"<MESH\_EVENT\_ROOT\_GOT\_IP>sta ip: "} IPSTR \textcolor{stringliteral}{", mask: "} IPSTR \textcolor{stringliteral}{", gw: "} IPSTR,}
+\DoxyCodeLine{00499                  IP2STR(\&event.info.got\_ip.ip\_info.ip),}
+\DoxyCodeLine{00500                  IP2STR(\&event.info.got\_ip.ip\_info.netmask),}
+\DoxyCodeLine{00501                  IP2STR(\&event.info.got\_ip.ip\_info.gw));}
+\DoxyCodeLine{00502         gotIP = \textcolor{keyword}{true};}
+\DoxyCodeLine{00503         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00504     \textcolor{keywordflow}{case} MESH\_EVENT\_ROOT\_LOST\_IP:}
+\DoxyCodeLine{00505         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_ROOT\_LOST\_IP>"});}
+\DoxyCodeLine{00506         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00507     \textcolor{keywordflow}{case} MESH\_EVENT\_VOTE\_STARTED:}
+\DoxyCodeLine{00508         ESP\_LOGI(MESH\_TAG,}
+\DoxyCodeLine{00509                  \textcolor{stringliteral}{"<MESH\_EVENT\_VOTE\_STARTED>attempts:\%d, reason:\%d, rc\_addr:"} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00510                  event.info.vote\_started.attempts,}
+\DoxyCodeLine{00511                  event.info.vote\_started.reason,}
+\DoxyCodeLine{00512                  MAC2STR(event.info.vote\_started.rc\_addr.addr));}
+\DoxyCodeLine{00513         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00514     \textcolor{keywordflow}{case} MESH\_EVENT\_VOTE\_STOPPED:}
+\DoxyCodeLine{00515         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_VOTE\_STOPPED>"});}
+\DoxyCodeLine{00516         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00517     \textcolor{keywordflow}{case} MESH\_EVENT\_ROOT\_SWITCH\_REQ:}
+\DoxyCodeLine{00518         ESP\_LOGI(MESH\_TAG,}
+\DoxyCodeLine{00519                  \textcolor{stringliteral}{"<MESH\_EVENT\_ROOT\_SWITCH\_REQ>reason:\%d, rc\_addr:"} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00520                  event.info.switch\_req.reason,}
+\DoxyCodeLine{00521                  MAC2STR(event.info.switch\_req.rc\_addr.addr));}
+\DoxyCodeLine{00522         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00523     \textcolor{keywordflow}{case} MESH\_EVENT\_ROOT\_SWITCH\_ACK:}
+\DoxyCodeLine{00524         \textcolor{comment}{/* new root */}}
+\DoxyCodeLine{00525         mesh\_layer = esp\_mesh\_get\_layer();}
+\DoxyCodeLine{00526         esp\_mesh\_get\_parent\_bssid(\&mesh\_parent\_addr);}
+\DoxyCodeLine{00527         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_ROOT\_SWITCH\_ACK>layer:\%d, parent:"} MACSTR \textcolor{stringliteral}{""}, mesh\_layer, MAC2STR(mesh\_parent\_addr.addr));}
+\DoxyCodeLine{00528         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00529     \textcolor{keywordflow}{case} MESH\_EVENT\_TODS\_STATE:}
+\DoxyCodeLine{00530         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_TODS\_REACHABLE>state:\%d"},}
+\DoxyCodeLine{00531                  event.info.toDS\_state);}
+\DoxyCodeLine{00532         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00533     \textcolor{keywordflow}{case} MESH\_EVENT\_ROOT\_FIXED:}
+\DoxyCodeLine{00534         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_ROOT\_FIXED>\%s"},}
+\DoxyCodeLine{00535                  event.info.root\_fixed.is\_fixed ? \textcolor{stringliteral}{"fixed"} : \textcolor{stringliteral}{"not fixed"});}
+\DoxyCodeLine{00536         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00537     \textcolor{keywordflow}{case} MESH\_EVENT\_ROOT\_ASKED\_YIELD:}
+\DoxyCodeLine{00538         ESP\_LOGI(MESH\_TAG,}
+\DoxyCodeLine{00539                  \textcolor{stringliteral}{"<MESH\_EVENT\_ROOT\_ASKED\_YIELD>"} MACSTR \textcolor{stringliteral}{", rssi:\%d, capacity:\%d"},}
+\DoxyCodeLine{00540                  MAC2STR(event.info.root\_conflict.addr),}
+\DoxyCodeLine{00541                  event.info.root\_conflict.rssi,}
+\DoxyCodeLine{00542                  event.info.root\_conflict.capacity);}
+\DoxyCodeLine{00543         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00544     \textcolor{keywordflow}{case} MESH\_EVENT\_CHANNEL\_SWITCH:}
+\DoxyCodeLine{00545         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_CHANNEL\_SWITCH>new channel:\%d"}, event.info.channel\_switch.channel);}
+\DoxyCodeLine{00546         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00547     \textcolor{keywordflow}{case} MESH\_EVENT\_SCAN\_DONE:}
+\DoxyCodeLine{00548         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_SCAN\_DONE>number:\%d"},}
+\DoxyCodeLine{00549                  event.info.scan\_done.number);}
+\DoxyCodeLine{00550         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00551     \textcolor{keywordflow}{case} MESH\_EVENT\_NETWORK\_STATE:}
+\DoxyCodeLine{00552         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_NETWORK\_STATE>is\_rootless:\%d"},}
+\DoxyCodeLine{00553                  event.info.network\_state.is\_rootless);}
+\DoxyCodeLine{00554         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00555     \textcolor{keywordflow}{case} MESH\_EVENT\_STOP\_RECONNECTION:}
+\DoxyCodeLine{00556         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_STOP\_RECONNECTION>"});}
+\DoxyCodeLine{00557         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00558     \textcolor{keywordflow}{case} MESH\_EVENT\_FIND\_NETWORK:}
+\DoxyCodeLine{00559         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_FIND\_NETWORK>new channel:\%d, router BSSID:"} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00560                  event.info.find\_network.channel, MAC2STR(event.info.find\_network.router\_bssid));}
+\DoxyCodeLine{00561         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00562     \textcolor{keywordflow}{case} MESH\_EVENT\_ROUTER\_SWITCH:}
+\DoxyCodeLine{00563         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"<MESH\_EVENT\_ROUTER\_SWITCH>new router:\%s, channel:\%d, "} MACSTR \textcolor{stringliteral}{""},}
+\DoxyCodeLine{00564                  event.info.router\_switch.ssid, event.info.router\_switch.channel, MAC2STR(event.info.router\_switch.bssid));}
+\DoxyCodeLine{00565         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00566     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00567         ESP\_LOGI(MESH\_TAG, \textcolor{stringliteral}{"unknown id:\%d"}, event.id);}
+\DoxyCodeLine{00568         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00569     \}}
+\DoxyCodeLine{00570 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_ab83a732f28055bd6835d031e13986f0b}\label{mesh__main_8c_ab83a732f28055bd6835d031e13986f0b}} 
+\index{mesh\_main.c@{mesh\_main.c}!ssd1306\_init@{ssd1306\_init}}
+\index{ssd1306\_init@{ssd1306\_init}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_init()}{ssd1306\_init()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initialize O\+L\+ED Screen using I2C 
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00096}{96}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00097 \{}
+\DoxyCodeLine{00098     esp\_err\_t espRc;}
+\DoxyCodeLine{00099 }
+\DoxyCodeLine{00100     i2c\_cmd\_handle\_t cmd = i2c\_cmd\_link\_create();}
+\DoxyCodeLine{00101 }
+\DoxyCodeLine{00102     i2c\_master\_start(cmd);}
+\DoxyCodeLine{00103     i2c\_master\_write\_byte(cmd, (OLED\_I2C\_ADDRESS << 1) | I2C\_MASTER\_WRITE, \textcolor{keyword}{true});}
+\DoxyCodeLine{00104     i2c\_master\_write\_byte(cmd, OLED\_CONTROL\_BYTE\_CMD\_STREAM, \textcolor{keyword}{true});}
+\DoxyCodeLine{00105 }
+\DoxyCodeLine{00106     i2c\_master\_write\_byte(cmd, OLED\_CMD\_SET\_CHARGE\_PUMP, \textcolor{keyword}{true});}
+\DoxyCodeLine{00107     i2c\_master\_write\_byte(cmd, 0x14, \textcolor{keyword}{true});}
+\DoxyCodeLine{00108 }
+\DoxyCodeLine{00109     i2c\_master\_write\_byte(cmd, OLED\_CMD\_SET\_SEGMENT\_REMAP, \textcolor{keyword}{true}); \textcolor{comment}{// reverse left-\/right mapping}}
+\DoxyCodeLine{00110     i2c\_master\_write\_byte(cmd, OLED\_CMD\_SET\_COM\_SCAN\_MODE, \textcolor{keyword}{true}); \textcolor{comment}{// reverse up-\/bottom mapping}}
+\DoxyCodeLine{00111 }
+\DoxyCodeLine{00112     i2c\_master\_write\_byte(cmd, OLED\_CMD\_DISPLAY\_ON, \textcolor{keyword}{true});}
+\DoxyCodeLine{00113     i2c\_master\_stop(cmd);}
+\DoxyCodeLine{00114 }
+\DoxyCodeLine{00115     espRc = i2c\_master\_cmd\_begin(I2C\_NUM\_0, cmd, 10 / portTICK\_PERIOD\_MS);}
+\DoxyCodeLine{00116     \textcolor{keywordflow}{if} (espRc == ESP\_OK)}
+\DoxyCodeLine{00117     \{}
+\DoxyCodeLine{00118         ESP\_LOGI(\mbox{\hyperlink{mesh__main_8c_afec25c5f400b1e2ff79878c038385f0d}{tag}}, \textcolor{stringliteral}{"OLED configured successfully"});}
+\DoxyCodeLine{00119     \}}
+\DoxyCodeLine{00120     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00121     \{}
+\DoxyCodeLine{00122         ESP\_LOGE(\mbox{\hyperlink{mesh__main_8c_afec25c5f400b1e2ff79878c038385f0d}{tag}}, \textcolor{stringliteral}{"OLED configuration failed. code: 0x\%.2X"}, espRc);}
+\DoxyCodeLine{00123     \}}
+\DoxyCodeLine{00124     i2c\_cmd\_link\_delete(cmd);}
+\DoxyCodeLine{00125 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mesh__main_8c_a311b55caa2c35dab8bcf5cdd7e9298fc}\label{mesh__main_8c_a311b55caa2c35dab8bcf5cdd7e9298fc}} 
+\index{mesh\_main.c@{mesh\_main.c}!task\_ssd1306\_display\_text@{task\_ssd1306\_display\_text}}
+\index{task\_ssd1306\_display\_text@{task\_ssd1306\_display\_text}!mesh\_main.c@{mesh\_main.c}}
+\doxysubsubsection{\texorpdfstring{task\_ssd1306\_display\_text()}{task\_ssd1306\_display\_text()}}
+{\footnotesize\ttfamily void task\+\_\+ssd1306\+\_\+display\+\_\+text (\begin{DoxyParamCaption}\item[{const void $\ast$}]{arg\+\_\+text }\end{DoxyParamCaption})}
+
+Display Text on the O\+L\+ED screen 
+\begin{DoxyParams}{Parameters}
+{\em arg\+\_\+text} & string with text to display \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{mesh__main_8c_source_l00131}{131}} of file \mbox{\hyperlink{mesh__main_8c_source}{mesh\+\_\+main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00132 \{}
+\DoxyCodeLine{00133     \textcolor{keywordtype}{char} *text = (\textcolor{keywordtype}{char} *)arg\_text;}
+\DoxyCodeLine{00134     uint8\_t text\_len = strlen(text);}
+\DoxyCodeLine{00135 }
+\DoxyCodeLine{00136     i2c\_cmd\_handle\_t cmd;}
+\DoxyCodeLine{00137 }
+\DoxyCodeLine{00138     uint8\_t cur\_page = 0;}
+\DoxyCodeLine{00139 }
+\DoxyCodeLine{00140     cmd = i2c\_cmd\_link\_create();}
+\DoxyCodeLine{00141     i2c\_master\_start(cmd);}
+\DoxyCodeLine{00142     i2c\_master\_write\_byte(cmd, (OLED\_I2C\_ADDRESS << 1) | I2C\_MASTER\_WRITE, \textcolor{keyword}{true});}
+\DoxyCodeLine{00143 }
+\DoxyCodeLine{00144     i2c\_master\_write\_byte(cmd, OLED\_CONTROL\_BYTE\_CMD\_STREAM, \textcolor{keyword}{true});}
+\DoxyCodeLine{00145     i2c\_master\_write\_byte(cmd, 0x00, \textcolor{keyword}{true}); \textcolor{comment}{// reset column}}
+\DoxyCodeLine{00146     i2c\_master\_write\_byte(cmd, 0x10, \textcolor{keyword}{true});}
+\DoxyCodeLine{00147     i2c\_master\_write\_byte(cmd, 0xB0 | cur\_page, \textcolor{keyword}{true}); \textcolor{comment}{// reset page}}
+\DoxyCodeLine{00148 }
+\DoxyCodeLine{00149     i2c\_master\_stop(cmd);}
+\DoxyCodeLine{00150     i2c\_master\_cmd\_begin(I2C\_NUM\_0, cmd, 10 / portTICK\_PERIOD\_MS);}
+\DoxyCodeLine{00151     i2c\_cmd\_link\_delete(cmd);}
+\DoxyCodeLine{00152 }
+\DoxyCodeLine{00153     \textcolor{keywordflow}{for} (uint8\_t i = 0; i < text\_len; i++)}
+\DoxyCodeLine{00154     \{}
+\DoxyCodeLine{00155         \textcolor{keywordflow}{if} (text[i] == \textcolor{charliteral}{'\(\backslash\)n'})}
+\DoxyCodeLine{00156         \{}
+\DoxyCodeLine{00157             cmd = i2c\_cmd\_link\_create();}
+\DoxyCodeLine{00158             i2c\_master\_start(cmd);}
+\DoxyCodeLine{00159             i2c\_master\_write\_byte(cmd, (OLED\_I2C\_ADDRESS << 1) | I2C\_MASTER\_WRITE, \textcolor{keyword}{true});}
+\DoxyCodeLine{00160 }
+\DoxyCodeLine{00161             i2c\_master\_write\_byte(cmd, OLED\_CONTROL\_BYTE\_CMD\_STREAM, \textcolor{keyword}{true});}
+\DoxyCodeLine{00162             i2c\_master\_write\_byte(cmd, 0x00, \textcolor{keyword}{true}); \textcolor{comment}{// reset column}}
+\DoxyCodeLine{00163             i2c\_master\_write\_byte(cmd, 0x10, \textcolor{keyword}{true});}
+\DoxyCodeLine{00164             i2c\_master\_write\_byte(cmd, 0xB0 | ++cur\_page, \textcolor{keyword}{true}); \textcolor{comment}{// increment page}}
+\DoxyCodeLine{00165 }
+\DoxyCodeLine{00166             i2c\_master\_stop(cmd);}
+\DoxyCodeLine{00167             i2c\_master\_cmd\_begin(I2C\_NUM\_0, cmd, 10 / portTICK\_PERIOD\_MS);}
+\DoxyCodeLine{00168             i2c\_cmd\_link\_delete(cmd);}
+\DoxyCodeLine{00169         \}}
+\DoxyCodeLine{00170         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00171         \{}
+\DoxyCodeLine{00172             cmd = i2c\_cmd\_link\_create();}
+\DoxyCodeLine{00173             i2c\_master\_start(cmd);}
+\DoxyCodeLine{00174             i2c\_master\_write\_byte(cmd, (OLED\_I2C\_ADDRESS << 1) | I2C\_MASTER\_WRITE, \textcolor{keyword}{true});}
+\DoxyCodeLine{00175 }
+\DoxyCodeLine{00176             i2c\_master\_write\_byte(cmd, OLED\_CONTROL\_BYTE\_DATA\_STREAM, \textcolor{keyword}{true});}
+\DoxyCodeLine{00177             i2c\_master\_write(cmd, font8x8\_basic\_tr[(uint8\_t)text[i]], 8, \textcolor{keyword}{true});}
+\DoxyCodeLine{00178 }
+\DoxyCodeLine{00179             i2c\_master\_stop(cmd);}
+\DoxyCodeLine{00180             i2c\_master\_cmd\_begin(I2C\_NUM\_0, cmd, 10 / portTICK\_PERIOD\_MS);}
+\DoxyCodeLine{00181             i2c\_cmd\_link\_delete(cmd);}
+\DoxyCodeLine{00182         \}}
+\DoxyCodeLine{00183     \}}
+\DoxyCodeLine{00184 }
+\DoxyCodeLine{00185     vTaskDelete(NULL);}
+\DoxyCodeLine{00186 \}}
+
+\end{DoxyCode}
